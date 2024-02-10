@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "4452e655-1800-4f28-92bb-17b1ea909528",
+		"name": "MercadoLibre",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11475774",
+		"_collection_link": "https://warped-space-536714.postman.co/workspace/My-Workspace~3271f7c1-bafa-474c-8a88-b1f49fba10f0/collection/11475774-4452e655-1800-4f28-92bb-17b1ea909528?action=share&source=collection_link&creator=11475774"
+	},
+	"item": [
+		{
+			"name": "training",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"players\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"player 1\",\r\n            \"stats\": [\r\n                {\r\n                    \"power\": \"400\",\r\n                    \"speed\": {\r\n                        \"distance\": \"40\",\r\n                        \"time\": \"6\"\r\n                    },\r\n                    \"passes\": \"20\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"name\": \"player 2\",\r\n            \"stats\": [\r\n                {\r\n                    \"power\": \"500\",\r\n                    \"speed\": {\r\n                        \"distance\": \"40\",\r\n                        \"time\": \"4\"\r\n                    },\r\n                    \"passes\": \"15\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"configuration\":{\r\n        \"id\":1,\r\n        \"week\":{\r\n            \"id\":1\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/training",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"training"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "configurePercentage",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \r\n    \"shootingPowerPercentage\": \"20\",\r\n    \"velocityPercentage\": \"30\",\r\n    \"effectivePassesPercentage\": \"50\",\r\n    \"week\": {\r\n        \"id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/configurePercentage",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"configurePercentage"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "initWeek",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/initWeek",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"initWeek"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "team",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/team?week=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"team"
+					],
+					"query": [
+						{
+							"key": "week",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
