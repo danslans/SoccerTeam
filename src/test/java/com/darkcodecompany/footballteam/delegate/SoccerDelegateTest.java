@@ -71,7 +71,7 @@ class SoccerDelegateTest {
     }
 
     @Test
-    void recordTraining() {
+    void when_recordTraining_expected_statusOk() {
         ITrainingUseCaseService trainingUseCaseServiceInstance = new TrainingUseCaseServiceImpl(
                 statRepository,
                 trainingRepository,
@@ -131,6 +131,44 @@ class SoccerDelegateTest {
 
         ResponseEntity<SoccerResponseDto<String>> response = soccerDelegate.recordTraining(trainingRequestDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+    }
+
+    @Test
+    void when_recordTraining_expected_statusError() {
+        ITrainingUseCaseService trainingUseCaseServiceInstance = new TrainingUseCaseServiceImpl(
+                statRepository,
+                trainingRepository,
+                playerRepository,
+                configurationRepository
+        );
+        soccerDelegate = new SoccerDelegate(
+                titularTeamUseCaseService,
+                trainingUseCaseServiceInstance,
+                configurationUseCaseService,
+                weekUseCaseService,
+                trainingMapper,
+                configurationMapper,
+                weekMapper,
+                playerMapper);
+        TrainingRequestDto trainingRequestDto = new TrainingRequestDto();
+        trainingRequestDto.setConfiguration(new ConfigurationDto());
+        PlayerDto playerDto = new PlayerDto();
+        playerDto.setId(1);
+        playerDto.setName("player 1");
+        StatsDto statsDto = new StatsDto();
+        statsDto.setPasses(20);
+        statsDto.setPower(300);
+        SpeedDto speedDto = new SpeedDto();
+        speedDto.setDistance(30);
+        speedDto.setTime(6);
+        statsDto.setSpeed(speedDto);
+        playerDto.setStats(Arrays.asList(statsDto));
+        trainingRequestDto.setPlayers(Arrays.asList(playerDto));
+
+        Mockito.doThrow(new IllegalArgumentException()).when(playerRepository).save(Mockito.any());
+
+        ResponseEntity<SoccerResponseDto<String>> response = soccerDelegate.recordTraining(trainingRequestDto);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
 
     @Test
