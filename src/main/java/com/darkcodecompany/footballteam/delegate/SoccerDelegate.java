@@ -115,6 +115,7 @@ public class SoccerDelegate {
             soccerResponseDto.setPayload(weekDto);
         } catch (SoccerException e) {
             soccerResponseDto.setStatus(false);
+            soccerResponseDto.setMessage(e.getMessage());
             logger.error(e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(soccerResponseDto);
         }
