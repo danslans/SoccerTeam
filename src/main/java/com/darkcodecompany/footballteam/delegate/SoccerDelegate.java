@@ -63,12 +63,13 @@ public class SoccerDelegate {
             TrainingEntity trainingPlayers = trainingMapper.convert(trainingRequestDto);
             ConfigurationEntity configurationEntity = configurationMapper.configurationDtoToConfigurationEntity(trainingRequestDto.getConfiguration());
             trainingUseCaseService.processTraining(trainingPlayers, configurationEntity);
+            soccerResponseDto.setMessage(Constant.TRAINING_PROCESS + Constant.WAS_SUCCESSFUL);
         } catch (SoccerException e) {
             soccerResponseDto.setStatus(false);
             logger.error(e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(soccerResponseDto);
+            soccerResponseDto.setMessage(Constant.TRAINING_PROCESS + Constant.WAS_NOT_SUCCESSFUL);
+            return ResponseEntity.ok(soccerResponseDto);
         }
-        soccerResponseDto.setMessage(Constant.TRAINING_PROCESS + (soccerResponseDto.isStatus() ? Constant.WAS_SUCCESSFUL : Constant.WAS_NOT_SUCCESSFUL));
         return ResponseEntity.ok(soccerResponseDto);
     }
 
@@ -79,14 +80,13 @@ public class SoccerDelegate {
             List<PlayerEntity> players = titularTeamUseCaseService.obtainTitularTeam(weekId);
             List<PlayerDto> playersDto = playerMapper.playerEntityToPlayerDto(players);
             soccerResponseDto.setPayload(playersDto);
+            return ResponseEntity.ok(soccerResponseDto);
         } catch (SoccerException e) {
             soccerResponseDto.setStatus(false);
             soccerResponseDto.setMessage(e.getMessage());
             logger.error(e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(soccerResponseDto);
+            return ResponseEntity.ok(soccerResponseDto);
         }
-
-        return ResponseEntity.ok(soccerResponseDto);
     }
 
     public ResponseEntity<SoccerResponseDto<ConfigurationDto>> configurePercentage(ConfigurationDto configurationDto) {
@@ -97,13 +97,13 @@ public class SoccerDelegate {
             ConfigurationEntity configurationEntity = configurationUseCaseService.configurePercentage(configuration);
             ConfigurationDto configurationResponseDto = configurationMapper.configurationEntityToConfigurationDto(configurationEntity);
             soccerResponseDto.setPayload(configurationResponseDto);
+            return ResponseEntity.ok(soccerResponseDto);
         } catch (SoccerException e) {
             soccerResponseDto.setStatus(false);
             soccerResponseDto.setMessage(e.getMessage());
             logger.error(e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(soccerResponseDto);
+            return ResponseEntity.ok(soccerResponseDto);
         }
-        return ResponseEntity.ok(soccerResponseDto);
     }
 
     public ResponseEntity<SoccerResponseDto<WeekDto>> initWeek() {
@@ -113,12 +113,12 @@ public class SoccerDelegate {
             WeekEntity weekEntity = weekUseCaseService.initWeek();
             WeekDto weekDto = weekMapper.weekEntityToWeekDto(weekEntity);
             soccerResponseDto.setPayload(weekDto);
+            return ResponseEntity.ok(soccerResponseDto);
         } catch (SoccerException e) {
             soccerResponseDto.setStatus(false);
             soccerResponseDto.setMessage(e.getMessage());
             logger.error(e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(soccerResponseDto);
+            return ResponseEntity.ok(soccerResponseDto);
         }
-        return ResponseEntity.ok(soccerResponseDto);
     }
 }
