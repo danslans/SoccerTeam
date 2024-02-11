@@ -18,3 +18,10 @@ is based from OpenApi
 
     /docApi/index.html
 
+Additional to test endpoints on production do you can access to heroku platform
+but in this repository we are file postman collection ```postman_collection.json```
+
+        https://stoccer-team-79e4c71cb910.herokuapp.com/
+
+I invite you to see file ```diagram.drawio``` to here you can see all use cases,
+and diagrams from this Api

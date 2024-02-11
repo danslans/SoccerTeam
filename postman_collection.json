@@ -8,6 +8,115 @@
 	},
 	"item": [
 		{
+			"name": "produccion",
+			"item": [
+				{
+					"name": "training",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"players\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"player 1\",\r\n            \"stats\": [\r\n                {\r\n                    \"power\": \"400\",\r\n                    \"speed\": {\r\n                        \"distance\": \"40\",\r\n                        \"time\": \"6\"\r\n                    },\r\n                    \"passes\": \"20\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"name\": \"player 2\",\r\n            \"stats\": [\r\n                {\r\n                    \"power\": \"500\",\r\n                    \"speed\": {\r\n                        \"distance\": \"40\",\r\n                        \"time\": \"4\"\r\n                    },\r\n                    \"passes\": \"15\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"configuration\":{\r\n        \"id\":1,\r\n        \"week\":{\r\n            \"id\":1\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://stoccer-team-79e4c71cb910.herokuapp.com/training",
+							"protocol": "https",
+							"host": [
+								"stoccer-team-79e4c71cb910",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"training"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "configurePercentage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \r\n    \"shootingPowerPercentage\": \"20\",\r\n    \"velocityPercentage\": \"30\",\r\n    \"effectivePassesPercentage\": \"50\",\r\n    \"week\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://stoccer-team-79e4c71cb910.herokuapp.com/configurePercentage",
+							"protocol": "https",
+							"host": [
+								"stoccer-team-79e4c71cb910",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"configurePercentage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "initWeek",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://stoccer-team-79e4c71cb910.herokuapp.com/initWeek",
+							"protocol": "https",
+							"host": [
+								"stoccer-team-79e4c71cb910",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"initWeek"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "team",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://stoccer-team-79e4c71cb910.herokuapp.com/team?week=1",
+							"protocol": "https",
+							"host": [
+								"stoccer-team-79e4c71cb910",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"team"
+							],
+							"query": [
+								{
+									"key": "week",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "training",
 			"request": {
 				"method": "POST",
