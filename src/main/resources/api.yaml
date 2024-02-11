@@ -1,0 +1,181 @@
+openapi: 3.0.1
+info:
+  title: Soccer API
+  description: API for managing soccer training and get titular team.
+  version: "1.0"
+servers:
+  - url: http://localhost:8080/
+paths:
+  /training:
+    post:
+      summary: Record a training session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainingRequestDto'
+      responses:
+        '200':
+          description: Training recorded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoccerResponseDtoString'
+
+  /team:
+    get:
+      summary: Obtain the titular team for a given week
+      parameters:
+        - name: week
+          in: query
+          description: id from week to get titular team
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Titular team for the week
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoccerResponseDtoListPlayerDto'
+
+  /configurePercentage:
+    post:
+      summary: Configure percentage for week
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationDto'
+      responses:
+        '200':
+          description: Percentage configured successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoccerResponseDtoConfigurationDto'
+
+  /initWeek:
+    post:
+      summary: Initialize a new week
+      responses:
+        '200':
+          description: Week initialized successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoccerResponseDtoWeekDto'
+
+components:
+  schemas:
+    TrainingRequestDto:
+      type: object
+      properties:
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerDto'
+        configuration:
+          $ref: '#/components/schemas/ConfigurationDto'
+
+    PlayerDto:
+      type: object
+      properties:
+          id:
+            type: integer
+            description: The player's id
+          name:
+            type: string
+            description: The player's name
+          stats:
+            type: array
+            items:
+              $ref: '#/components/schemas/StatsDto'
+          totalScore:
+            type: integer
+            description: The player's total score
+
+    StatsDto:
+      type: object
+      properties:
+        power:
+          type: integer
+          description: The player's power
+        speed:
+          $ref: '#/components/schemas/SpeedDto'
+        passes:
+          type: integer
+          description: The player's passes
+
+    SpeedDto:
+      type: object
+      properties:
+        distance:
+          type: integer
+          description: The player's distance
+        time:
+          type: integer
+          description: The player's time
+
+    ConfigurationDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The configuration's id
+        shootingPowerPercentage:
+          type: integer
+          description: The shooting power percentage
+        velocityPercentage:
+          type: integer
+          description: The velocity percentage
+        passesPercentage:
+          type: integer
+          description: The passes percentage
+        week:
+          $ref: '#/components/schemas/WeekDto'
+
+    WeekDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The week's id
+
+    SoccerResponseDtoString:
+      type: object
+      properties:
+        payload:
+          type: string
+          description: The response with message result operation
+        message:
+          type: string
+          description: The response with message result operation
+        status:
+          type: boolean
+          description: indicates whether the result was correct or not
+
+    SoccerResponseDtoListPlayerDto:
+      type: object
+      properties:
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerDto'
+
+
+    SoccerResponseDtoConfigurationDto:
+      type: object
+      properties:
+        payload:
+          $ref: '#/components/schemas/ConfigurationDto'
+
+
+    SoccerResponseDtoWeekDto:
+      type: object
+      properties:
+        payload:
+          $ref: '#/components/schemas/WeekDto'

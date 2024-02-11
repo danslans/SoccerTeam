@@ -8,11 +8,11 @@ import lombok.Setter;
 @Setter
 public class ConfigurationDto {
     private int id;
-    @Min(value = 0, message = "shootingPowerPercentage cannot be less than 0", groups = {ICreateConfiguration.class})
+    @Min(value = 1, message = "shootingPowerPercentage cannot be less than 0", groups = {ICreateConfiguration.class})
     private int shootingPowerPercentage;
-    @Min(value = 0, message = "velocityPercentage cannot be less than 0", groups = {ICreateConfiguration.class})
+    @Min(value = 1, message = "velocityPercentage cannot be less than 0", groups = {ICreateConfiguration.class})
     private int velocityPercentage;
-    @Min(value = 0, message = "effectivePassesPercentage cannot be less than 0", groups = {ICreateConfiguration.class})
+    @Min(value = 1, message = "effectivePassesPercentage cannot be less than 0", groups = {ICreateConfiguration.class})
     private int effectivePassesPercentage;
     private WeekDto week;
 }

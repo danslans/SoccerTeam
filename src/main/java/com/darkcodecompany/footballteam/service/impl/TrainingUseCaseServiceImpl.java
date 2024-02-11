@@ -36,7 +36,7 @@ public class TrainingUseCaseServiceImpl implements ITrainingUseCaseService {
     }
 
     @Override
-    public boolean processTraining(TrainingEntity trainingEntity, ConfigurationEntity configurationEntity) throws SoccerException {
+    public void processTraining(TrainingEntity trainingEntity, ConfigurationEntity configurationEntity) throws SoccerException {
         try {
             List<PlayerEntity> players = playerRepository.saveAll(trainingEntity.getPlayers());
             ConfigurationEntity configuration = configurationRepository.findById(configurationEntity.getId())
@@ -47,26 +47,26 @@ public class TrainingUseCaseServiceImpl implements ITrainingUseCaseService {
         }catch (Exception e){
             throw new SoccerException( SoccerException.ERROR_RECORD_TRAINING,e);
         }
-        return true;
     }
 
     private void saveStats(TrainingEntity trainingEntity, ConfigurationEntity configurationEntity, List<PlayerEntity> players) {
         players.forEach(playerEntity -> {
             var playerWithStat = getPlayerWithStat(trainingEntity, playerEntity);
-            getScore( configurationEntity,playerWithStat);
-            statRepository.saveAll(playerWithStat.getStats());
+            playerEntity.setStats(playerWithStat.getStats());
+            getScore( configurationEntity,playerEntity);
+            statRepository.saveAll(playerEntity.getStats());
         });
     }
 
     private  PlayerEntity getPlayerWithStat(TrainingEntity trainingEntity, PlayerEntity playerEntity) {
-        return trainingEntity.getPlayers().stream().filter(player -> player.getId() == playerEntity.getId())
+        return trainingEntity.getPlayers().stream().filter(player -> player.getId().equals(playerEntity.getId()))
                 .findFirst().orElseThrow();
     }
 
     private void getScore(ConfigurationEntity configurationEntity, PlayerEntity playerWithStat) {
-        playerWithStat.getStats( ).forEach(stat -> {
-            stat.setScore( calculateScore(configurationEntity.getWeek(), stat) );
-        });
+        playerWithStat.getStats( ).forEach(stat ->
+            stat.setScore( calculateScore(configurationEntity.getWeek(), stat) )
+        );
     }
 
     private int calculateScore(WeekEntity week, StatEntity stat) {
@@ -82,7 +82,7 @@ public class TrainingUseCaseServiceImpl implements ITrainingUseCaseService {
     }
 
     private BigDecimal pointByCategory(int category, int percentage) {
-        return BigDecimal.valueOf(category).multiply(BigDecimal.valueOf(percentage)).divide(BigDecimal.valueOf(HUNDRED_PERCENT));
+        return BigDecimal.valueOf(category).multiply(BigDecimal.valueOf(percentage)).divide(BigDecimal.valueOf(HUNDRED_PERCENT), SCALE_DIVIDE, RoundingMode.HALF_EVEN);
     }
 
     private BigDecimal getTotalScore(BigDecimal... points) {

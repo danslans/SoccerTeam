@@ -4,7 +4,6 @@ import com.darkcodecompany.footballteam.delegate.SoccerDelegate;
 import com.darkcodecompany.footballteam.dto.*;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

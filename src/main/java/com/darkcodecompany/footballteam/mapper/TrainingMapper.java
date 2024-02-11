@@ -14,8 +14,8 @@ import java.util.ArrayList;
 @Component
 public class TrainingMapper  implements ITrainingMapper {
 
-    private IPlayerMapper playerMapper;
-    private IWeekMapper weekMapper;
+    private final IPlayerMapper playerMapper;
+    private final IWeekMapper weekMapper;
 
     @Autowired
     public TrainingMapper(IPlayerMapper playerMapper, IWeekMapper weekMapper) {

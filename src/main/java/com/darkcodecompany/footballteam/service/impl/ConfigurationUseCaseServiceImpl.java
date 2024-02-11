@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ConfigurationUseCaseServiceImpl implements IConfigurationUseCaseService {
-    private IConfigurationRepository configurationRepository;
+    private final IConfigurationRepository configurationRepository;
 
     @Autowired
     public ConfigurationUseCaseServiceImpl(IConfigurationRepository configurationRepository) {

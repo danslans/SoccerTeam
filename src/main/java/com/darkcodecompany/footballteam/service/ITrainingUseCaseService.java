@@ -6,5 +6,5 @@ import com.darkcodecompany.footballteam.model.TrainingEntity;
 
 public interface ITrainingUseCaseService {
 
-    boolean processTraining(TrainingEntity trainingEntity, ConfigurationEntity configurationEntity) throws SoccerException;
+    void processTraining(TrainingEntity trainingEntity, ConfigurationEntity configurationEntity) throws SoccerException;
 }

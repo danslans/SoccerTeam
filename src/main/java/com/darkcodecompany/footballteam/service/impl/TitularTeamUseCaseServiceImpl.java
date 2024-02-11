@@ -2,25 +2,19 @@ package com.darkcodecompany.footballteam.service.impl;
 
 import com.darkcodecompany.footballteam.exception.SoccerException;
 import com.darkcodecompany.footballteam.model.PlayerEntity;
-import com.darkcodecompany.footballteam.model.StatEntity;
 import com.darkcodecompany.footballteam.model.WeekEntity;
 import com.darkcodecompany.footballteam.repository.IWeekRepository;
 import com.darkcodecompany.footballteam.service.ITitularTeamUseCaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class TitularTeamUseCaseServiceImpl implements ITitularTeamUseCaseService {
 
     private static final int MIN_TRAINING = 3;
-    private IWeekRepository weekRepository;
+    private final IWeekRepository weekRepository;
 
     @Autowired
     public TitularTeamUseCaseServiceImpl(IWeekRepository weekRepository) {
