@@ -5,7 +5,7 @@
     <button *ngIf="initWeekState" mat-raised-button color="accent" (click)="clean()">finalize Week</button>
   </mat-card-content>
 </mat-card>
-
+<br>
 <mat-card *ngIf="initWeekState">
   <mat-card-title>Please configure the percentage to this Week {{idWeek}}</mat-card-title>
   <mat-card-content style="display: flex;flex-direction: column">
@@ -24,7 +24,7 @@
     <button *ngIf="!isConfiguration" mat-raised-button color="accent" (click)="saveConfigurationPercentage()">Save</button>
   </mat-card-content>
 </mat-card>
-
+<br>
 <mat-card *ngIf="isConfiguration">
   <mat-card-title>Please load training from team</mat-card-title>
   <mat-card-content style="display: flex;flex-direction: column">
@@ -57,30 +57,21 @@
     </div>
     <button *ngIf="!isTraining" mat-raised-button color="accent" (click)="saveTraining()">Save</button>
     <button *ngIf="isTraining" mat-raised-button color="accent" (click)="cleanTraining()">Registry Other Training</button>
+
+    <h1>{{msn}}</h1>
   </mat-card-content>
 </mat-card>
-
+<br>
 <mat-card *ngIf="isConfiguration">
   <mat-card-title>See titular team</mat-card-title>
   <mat-card-content style="display: flex;flex-direction: column">
     <button *ngIf="isConfiguration" mat-raised-button color="accent" (click)="getTitularTeam()">Get titular Team</button>
-    <table mat-table [dataSource]="titularTeam" class="mat-elevation-z8">
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> ID. </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef> totalScore </th>
-        <td mat-cell *matCellDef="let element"> {{element.totalScore}} </td>
-      </ng-container>
-
-    </table>
+    <div *ngFor="let titular of titularTeam">
+      <mat-card>
+        <mat-card-content> <h1>{{titular.id}} {{titular.name}} {{titular.totalScore}}</h1></mat-card-content>
+      </mat-card>
+      <br>
+    </div>
   </mat-card-content>
 </mat-card>
-<h1>{{msn}}</h1>
+

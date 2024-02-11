@@ -93,7 +93,7 @@ export class Speed{
 
 export interface TitularTeam{
   id:number;
-  name:string
+  name:string;
   totalScore:number;
 }
 

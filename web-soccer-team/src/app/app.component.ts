@@ -41,7 +41,6 @@ export class AppComponent {
 
 
   constructor(private fetchService: FetchService) {
-
   }
 
   initWeek(): void {
@@ -83,7 +82,7 @@ debugger
   }
 
   clean(): void {
-    this.idWeek = 0;
+    this.idWeek = 9;
     this.idConfiguration=0;
     this.isConfiguration=false;
     this.initWeekState = false;
@@ -99,25 +98,29 @@ debugger
   cleanTraining():void{
     this.isTraining=false;
     this.trainingPlayers =[];
+    this.msn = '';
   }
 
   saveTraining() :void{
-
-    const players = this.trainingPlayers.map(player => {
-      const speed = new Speed(player.distance,player.time);
-      const stats = Array.of(new Stat(player.power,speed,player.passes));
-      return  new Player(player.id,player.name,stats);
-    });
-    const configuration =new Configuration(this.idConfiguration,new Week(this.idWeek));
-    const requestTraining = new TrainingRequest(
-      players,
-      configuration
-    );
-    debugger
-    this.fetchService.postTraining(requestTraining).then(value => {
-      this.msn = value.message;
-      this.isTraining = value.status;
-    });
+    if (this.trainingPlayers.length>0){
+      const players = this.trainingPlayers.map(player => {
+        const speed = new Speed(player.distance,player.time);
+        const stats = Array.of(new Stat(player.power,speed,player.passes));
+        return  new Player(player.id,player.name,stats);
+      });
+      const configuration =new Configuration(this.idConfiguration,new Week(this.idWeek));
+      const requestTraining = new TrainingRequest(
+        players,
+        configuration
+      );
+      debugger
+      this.fetchService.postTraining(requestTraining).then(value => {
+        this.msn = value.message;
+        this.isTraining = value.status;
+      });
+    }else{
+      this.msn = "you can add player!";
+    }
 
   }
 
@@ -125,7 +128,10 @@ debugger
     debugger
     this.fetchService.getTeam(this.idWeek).then(value => {
       if (value.status){
-        this.titularTeam.push(value.payload);
+        const players:TitularTeam[] = value.payload as TitularTeam[];
+        players.forEach(player=>{
+          this.titularTeam.push(player);
+        });
       }else {
         this.msn = value.message;
       }
