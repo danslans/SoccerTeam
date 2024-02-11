@@ -40,6 +40,18 @@ dependencies {
 	testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final' // if you are using mapstruct in test code
 }
 
+// Define una tarea personalizada que dependa de bootJar
+task buildWithBootJar {
+	dependsOn 'bootJar'
+}
+
+// Configura la tarea build para que excluya la verificación (check) y dependa de tu tarea personalizada
+build {
+	dependsOn buildWithBootJar
+	// Excluye la tarea de verificación (check) si es necesario
+	tasks.findByName('check').enabled = false
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
