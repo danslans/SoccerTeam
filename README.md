@@ -17,6 +17,7 @@ To view documentation of endpoints exposes see the folder, and the documentation
 is based from OpenApi
 
     /docApi/index.html
+    https://danslans.github.io/SoccerTeam/docApi/
 
 Additional to test endpoints on production do you can access to heroku platform
 but in this repository we are file postman collection ```postman_collection.json```

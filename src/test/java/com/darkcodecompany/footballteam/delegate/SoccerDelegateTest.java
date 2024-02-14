@@ -166,7 +166,8 @@ class SoccerDelegateTest {
         Mockito.doThrow(new IllegalArgumentException()).when(playerRepository).save(Mockito.any());
 
         ResponseEntity<SoccerResponseDto<String>> response = soccerDelegate.recordTraining(trainingRequestDto);
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertFalse(response.getBody().isStatus());
     }
 
     @Test
@@ -214,7 +215,8 @@ class SoccerDelegateTest {
         Mockito.when(weekRepository.findById(weekId)).thenReturn(Optional.empty());
 
         ResponseEntity<SoccerResponseDto<List<PlayerDto>>> response = soccerDelegate.obtainTitularTeam(weekId);
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertFalse(response.getBody().isStatus());
     }
 
     @Test
@@ -273,7 +275,8 @@ class SoccerDelegateTest {
         Mockito.doThrow(new IllegalArgumentException()).when(configurationRepository).save(Mockito.any());
         ResponseEntity<SoccerResponseDto<ConfigurationDto>> response = soccerDelegate.configurePercentage(configurationDto);
 
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertFalse(response.getBody().isStatus());
     }
 
     @Test
@@ -314,6 +317,7 @@ class SoccerDelegateTest {
         Mockito.doThrow(new IllegalArgumentException()).when(weekRepository).save(Mockito.any());
         ResponseEntity<SoccerResponseDto<WeekDto>> response = soccerDelegate.initWeek();
 
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertFalse(response.getBody().isStatus());
     }
 }
